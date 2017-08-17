@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Athurg Feng</string>
+	<key>Builder Version</key>
+	<string>12603.2.4</string>
+	<key>CFBundleDisplayName</key>
+	<string>随手记WEB修正器</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.gooth.feideewebmodifier</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>jquery-3.2.1.min.js</string>
+				<string>modify.js</string>
+			</array>
+		</dict>
+		<key>Whitelist</key>
+		<array>
+			<string>http://*.feidee.com/*</string>
+			<string>https://*.feidee.com/*</string>
+		</array>
+	</dict>
+	<key>Description</key>
+	<string>随手记WEB界面调整工具。目前包含两个功能，一是周期帐添加到一级导航栏；二是周期帐页面，部分入账日期背景色和已入账一样（而不是和未入账一样）。</string>
+	<key>DeveloperIdentifier</key>
+	<string>0000000000</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>https://gooth.org</string>
+</dict>
+</plist>
