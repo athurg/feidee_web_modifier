@@ -26,11 +26,6 @@
 				<string>modify.js</string>
 			</array>
 		</dict>
-		<key>Whitelist</key>
-		<array>
-			<string>http://*.feidee.com/*</string>
-			<string>https://*.feidee.com/*</string>
-		</array>
 	</dict>
 	<key>Description</key>
 	<string>随手记WEB界面调整工具。目前包含两个功能，一是周期帐添加到一级导航栏；二是周期帐页面，部分入账日期背景色和已入账一样（而不是和未入账一样）。</string>
@@ -42,10 +37,14 @@
 	<dict>
 		<key>Website Access</key>
 		<dict>
+			<key>Allowed Domains</key>
+			<array>
+				<string>*.feidee.com</string>
+			</array>
 			<key>Include Secure Pages</key>
 			<true/>
 			<key>Level</key>
-			<string>All</string>
+			<string>Some</string>
 		</dict>
 	</dict>
 	<key>Website</key>
