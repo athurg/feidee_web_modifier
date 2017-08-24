@@ -44,6 +44,14 @@ function duplicateBillNavItem() {
 	var navLi = $("li.l-tally").first().clone();
 	$(navLi).find("a").html(archor.html());
 	$(navLi).find("a").attr("href", archor.attr("href"));
+	$(navLi).addClass("l-bill");
+	$(navLi).removeClass("l-tally");
+
+	//切换导航栏是否是选中状态
+	$(navLi).removeClass("select");
+	if (window.location.pathname == "/money/bill/index.do") {
+		$(navLi).addClass("select");
+	}
 
 	//将克隆的导航项放在“记账”导航项目前面（CSS样式匹配后界面显示为后面）
 	$("li.l-tally").before(navLi);
