@@ -57,5 +57,50 @@ function duplicateBillNavItem() {
 	$("li.l-tally").before(navLi);
 }
 
+//tip列表观察器回调
+function calendarTipMutationCallback(mutations, observer) {
+	mutations.forEach(function(mutation) {
+		//计算总金额
+		var total = 0.0;
+		$('dl#tip_list_dl dt span.tip_dt_money').each(function(){
+			if ($(this).hasClass("money_total")) {
+				return;
+			}
+			total += parseFloat($(this).text());
+		});
+
+		//检查总金额显示栏，如果存在就更新
+		money_total_span = $('dl#tip_list_dl span.tip_dd_money.money_total')
+		if (money_total_span.length != 0) {
+			$(money_total_span).html(total);
+			return;
+		}
+
+		//如果不存在则手动添加
+		html  = '<dt>';
+		html += '<span class="tip_dt_name">金额累加</span>';
+		html += '<span class="tip_dt_money money_total">' + total + '</span>';
+		html += '</dt>';
+		html += '<dd><div>';
+		html += '<span class="tip_dd_name"></span>';
+		html += '<span class="tip_dd_money money_total"></span>';
+		html += '</div><div class="tips-memo"></div></dd>';
+
+		$('dl#tip_list_dl').prepend(html);
+	});
+}
+
+//“周期帐”日历视图提示弹框的观察器
+function loadCalendarTipObserver() {
+	observer = new MutationObserver(calendarTipMutationCallback);
+	div = document.querySelector('dl#tip_list_dl');
+	if (div==null) {
+		console.log("没有找到TIP div");
+		return;
+	}
+	observer.observe(div, {childList: true});
+}
+
 loadCalendarObserver();
 duplicateBillNavItem();
+loadCalendarTipObserver();
