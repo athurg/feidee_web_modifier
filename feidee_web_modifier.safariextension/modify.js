@@ -101,6 +101,16 @@ function loadCalendarTipObserver() {
 	observer.observe(div, {childList: true});
 }
 
+//“记账”页转账项目增加“转”的文本标志
+function addTipForTransferTally() {
+	target = document.querySelector('div#list');
+	callback = function(){
+		$("span.typename2").html("(转)");
+	};
+	new MutationObserver(callback).observe(target, {childList: true});
+}
+
 loadCalendarObserver();
 duplicateBillNavItem();
 loadCalendarTipObserver();
+addTipForTransferTally();

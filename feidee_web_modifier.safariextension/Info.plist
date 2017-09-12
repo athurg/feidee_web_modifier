@@ -26,6 +26,10 @@
 				<string>modify.js</string>
 			</array>
 		</dict>
+		<key>Stylesheets</key>
+		<array>
+			<string>style.css</string>
+		</array>
 	</dict>
 	<key>Description</key>
 	<string>随手记WEB界面调整工具。目前包含两个功能，一是周期帐添加到一级导航栏；二是周期帐页面，部分入账日期背景色和已入账一样（而不是和未入账一样）。</string>
