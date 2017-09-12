@@ -1,18 +1,4 @@
-//更新背景色，当日入账金额大于0，就显示为绿色的
-function fixCalendar() {
-	$("div.nameMoney span.money").each(function(){
-		//获取当日入账金额，如果为0则跳过
-		if (parseFloat($(this).text()) == 0) {
-			return
-		}
-
-		$(this).parent().parent().removeClass("old");
-
-		//否则修正背景色
-		//$(this).parent().css("background-color", "#009900");
-	});
-}
-
+/******************** 以下为函数定义 *******************/
 //定义观察器回调：当添加节点时，执行fix
 function mutationCallback(mutations, observer) {
 	mutations.forEach(function(mutation) {
@@ -20,20 +6,21 @@ function mutationCallback(mutations, observer) {
 			return
 		}
 
-		fixCalendar();
+		//更新背景色，当日入账金额大于0，就显示为绿色的
+		$("div.nameMoney span.money").each(function(){
+			//获取当日入账金额，如果为0则跳过
+			if (parseFloat($(this).text()) == 0) {
+				return
+			}
+
+			$(this).parent().parent().removeClass("old");
+
+			//否则修正背景色
+			//$(this).parent().css("background-color", "#009900");
+		});
 	});
 }
 
-//启动“周期帐”日历视图的观察器
-function loadCalendarObserver() {
-	//对id为calendar的table启动观察器
-	observer = new MutationObserver(mutationCallback);
-	table = document.querySelector('table#calendar');
-	if (table==null) {
-		return;
-	}
-	observer.observe(table, {childList: true, subtree: true});
-}
 
 //复制一个“周期帐”的导航项目，并放在顶层
 function duplicateBillNavItem() {
@@ -90,27 +77,46 @@ function calendarTipMutationCallback(mutations, observer) {
 	});
 }
 
-//“周期帐”日历视图提示弹框的观察器
-function loadCalendarTipObserver() {
-	observer = new MutationObserver(calendarTipMutationCallback);
-	div = document.querySelector('dl#tip_list_dl');
-	if (div==null) {
-		console.log("没有找到TIP div");
-		return;
+
+
+
+/******************** 以下为执行代码 *******************/
+//调整“周期帐”页面部分入账日期的样式
+try {
+	target = document.querySelector('table#calendar');
+	if (target!=null) {
+		new MutationObserver(mutationCallback).observe(target, {childList: true, subtree: true});
 	}
-	observer.observe(div, {childList: true});
+}catch(e){
+	console.log(e);
 }
 
-//“记账”页转账项目增加“转”的文本标志
-function addTipForTransferTally() {
+//添加／更新“周期帐”顶级导航项
+try{
+	duplicateBillNavItem();
+}catch(e){
+	console.log(e);
+}
+
+//添加／更新“周期帐”入账弹出页面的金额汇总信息
+try{
+	target = document.querySelector('dl#tip_list_dl');
+	if (target!=null) {
+		new MutationObserver(calendarTipMutationCallback).observe(target, {childList: true});
+	}
+}catch(e){
+	console.log(e);
+}
+
+//给“记账”页面条目清单中的转账条目增加“转”的文本标志
+try{
 	target = document.querySelector('div#list');
-	callback = function(){
-		$("span.typename2").html("(转)");
-	};
-	new MutationObserver(callback).observe(target, {childList: true});
+	if (target!=null) {
+		callback = function(){
+			$("span.typename2").html('(转)');
+		};
+		new MutationObserver(callback).observe(target, {childList: true});
+	}
+}catch(e){
+	console.log(e);
 }
-
-loadCalendarObserver();
-duplicateBillNavItem();
-loadCalendarTipObserver();
-addTipForTransferTally();
