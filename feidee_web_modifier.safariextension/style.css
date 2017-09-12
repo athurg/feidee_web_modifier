@@ -1,2 +1,5 @@
 /* “记账”页面转账行的“转”提示颜色区分 */
 #list .list-tit .ul2 .bt-1 .typename2{color: #6061FF !important;}
+
+/* “周期账”页面部分入账日期的背景色 */
+#calendar td.part .nameMoney{background-color: #898922 !important};

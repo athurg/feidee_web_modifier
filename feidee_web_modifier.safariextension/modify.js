@@ -1,26 +1,39 @@
 /******************** 以下为函数定义 *******************/
-//定义观察器回调：当添加节点时，执行fix
-function mutationCallback(mutations, observer) {
+//“周期帐”页面背景色更新回调
+function calendarBackgroundUpdateCallback(mutations, observer) {
 	mutations.forEach(function(mutation) {
-		if (mutation.addedNodes.length==0) {
-			return
+		var spans=null;
+		if (mutation.target.tagName=="TBODY") {
+			//整月刷新
+			spans = mutation.target.querySelectorAll("span.money");
+		} else if (mutation.target.tagName=="SPAN" && mutation.target.classList.contains("money")) {
+			//单个日期刷新
+			spans = [mutation.target];
 		}
 
-		//更新背景色，当日入账金额大于0，就显示为绿色的
-		$("div.nameMoney span.money").each(function(){
-			//获取当日入账金额，如果为0则跳过
-			if (parseFloat($(this).text()) == 0) {
-				return
+		if (spans==null || spans.length==0) {
+			return;
+		}
+
+		for (i=0; i<spans.length; i ++ ) {
+			span = spans[i];
+			//金额为0表示未入账，不作修改
+			if (parseFloat(span.innerText)==0) {
+				continue;
 			}
 
-			$(this).parent().parent().removeClass("old");
+			//如果金额为0但不包含old样式，表示已入账或者尚未到达日期，这个时候不应该包含part样式
+			if (!span.parentNode.parentNode.classList.contains("old")) {
+				span.parentNode.parentNode.classList.remove("part");
+				continue;
+			}
 
-			//否则修正背景色
-			//$(this).parent().css("background-color", "#009900");
-		});
+			//如果金额为0且包含old样式，表示已部分入账。应该修改old样式为part样式
+			span.parentNode.parentNode.classList.remove("old");
+			span.parentNode.parentNode.classList.add("part");
+		}
 	});
 }
-
 
 //复制一个“周期帐”的导航项目，并放在顶层
 function duplicateBillNavItem() {
@@ -94,9 +107,10 @@ function calendarTipMutationCallback(mutations, observer) {
 /******************** 以下为执行代码 *******************/
 //调整“周期帐”页面部分入账日期的样式
 try {
+	$('div.tipColor ul').append('<li><a class="backgroundGreen" style="background-color:#898922"></a><li style="padding-top: 6px;">部分入账</li>');
 	target = document.querySelector('table#calendar');
 	if (target!=null) {
-		new MutationObserver(mutationCallback).observe(target, {childList: true, subtree: true});
+		new MutationObserver(calendarBackgroundUpdateCallback).observe(target, {childList: true, subtree: true});
 	}
 }catch(e){
 	console.log(e);
