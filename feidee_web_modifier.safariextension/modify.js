@@ -49,29 +49,40 @@ function calendarTipMutationCallback(mutations, observer) {
 	mutations.forEach(function(mutation) {
 		//计算总金额
 		var total = 0.0;
-		$('dl#tip_list_dl dt span.tip_dt_money').each(function(){
+		$('dl#tip_list_dl span.tip_dd_money').each(function(){
 			if ($(this).hasClass("money_total")) {
 				return;
 			}
 			total += parseFloat($(this).text());
 		});
+		//保留两位小数
+		total = (total * 100).toFixed() / 100
+
+		//更新总金额的DOM变更操作不需要处理，否则会进入死循环
+		if (mutation.target.classList.contains("money_total")) {
+			return
+		}
 
 		//检查总金额显示栏，如果存在就更新
-		money_total_span = $('dl#tip_list_dl span.tip_dd_money.money_total')
+		money_total_span = $('dl#tip_list_dl span.tip_dt_money.money_total')
 		if (money_total_span.length != 0) {
 			$(money_total_span).html(total);
 			return;
 		}
 
 		//如果不存在则手动添加
-		html  = '<dt>';
-		html += '<span class="tip_dt_name">金额累加</span>';
-		html += '<span class="tip_dt_money money_total">' + total + '</span>';
-		html += '</dt>';
-		html += '<dd><div>';
-		html += '<span class="tip_dd_name"></span>';
-		html += '<span class="tip_dd_money money_total"></span>';
-		html += '</div><div class="tips-memo"></div></dd>';
+		html = 
+			'<dt>' +
+			'	<span class="tip_dt_name">金额累加</span>' +
+			'	<span class="tip_dt_money money_total">' + total + '</span>' +
+			'</dt>' +
+			'<dd>' + 
+			'	<div>' +
+			'		<span class="tip_dd_name"></span>' +
+			'		<span class="tip_dd_money money_total"></span>' +
+			'	</div>' +
+			'	<div class="tips-memo"></div>' +
+			'</dd>';
 
 		$('dl#tip_list_dl').prepend(html);
 	});
@@ -102,7 +113,7 @@ try{
 try{
 	target = document.querySelector('dl#tip_list_dl');
 	if (target!=null) {
-		new MutationObserver(calendarTipMutationCallback).observe(target, {childList: true});
+		new MutationObserver(calendarTipMutationCallback).observe(target, {childList: true, subtree: true});
 	}
 }catch(e){
 	console.log(e);
