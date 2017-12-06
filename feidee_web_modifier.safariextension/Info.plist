@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Athurg Feng</string>
 	<key>Builder Version</key>
-	<string>12603.3.8</string>
+	<string>13604.1.38.1.6</string>
 	<key>CFBundleDisplayName</key>
 	<string>随手记WEB修正器</string>
 	<key>CFBundleIdentifier</key>
@@ -44,6 +44,7 @@
 			<key>Allowed Domains</key>
 			<array>
 				<string>*.feidee.com</string>
+				<string>*.sui.com</string>
 			</array>
 			<key>Include Secure Pages</key>
 			<true/>
