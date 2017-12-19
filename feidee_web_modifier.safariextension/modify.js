@@ -49,7 +49,7 @@ function duplicateBillNavItem() {
 
 	//切换导航栏是否是选中状态
 	$(navLi).removeClass("select");
-	if (window.location.pathname == "/money/bill/index.do") {
+	if (window.location.pathname == "/bill/index.do" || window.location.pathname == "/money/bill/index.do") {
 		$(navLi).addClass("select");
 	}
 
