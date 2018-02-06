@@ -24,6 +24,7 @@
 			<array>
 				<string>jquery-3.2.1.min.js</string>
 				<string>modify.js</string>
+				<string>modify_tally_new.js</string>
 			</array>
 		</dict>
 		<key>Stylesheets</key>
