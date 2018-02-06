@@ -5,15 +5,15 @@
 	<key>Author</key>
 	<string>Athurg Feng</string>
 	<key>Builder Version</key>
-	<string>13604.4.7.1.3</string>
+	<string>13604.4.7.1.6</string>
 	<key>CFBundleDisplayName</key>
-	<string>随手记WEB修正器</string>
+	<string>随手记WEB界面调整工具</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.gooth.feideewebmodifier</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>Content</key>
@@ -34,7 +34,7 @@
 		</array>
 	</dict>
 	<key>Description</key>
-	<string>随手记WEB界面调整工具。目前包含两个功能，一是周期帐添加到一级导航栏；二是周期帐页面，部分入账日期背景色和已入账一样（而不是和未入账一样）。</string>
+	<string>随手记WEB界面调整工具</string>
 	<key>DeveloperIdentifier</key>
 	<string>QBT9JGXAGK</string>
 	<key>ExtensionInfoDictionaryVersion</key>
