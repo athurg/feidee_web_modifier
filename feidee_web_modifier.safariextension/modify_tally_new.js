@@ -1,8 +1,17 @@
-//“记账”页（/tally/new.do）修改的内容
+/*
+“记账”页（/tally/new.do）修改的内容：
 
-//账目清单列表中，在每日支出、收入前，增加一个绝对值汇总的信息
+  1. 所有的转账条目，和收支类似条目类似，增加一个“转”文本标志。
+  2. 条目每日汇总中，增加一个绝对值汇总信息。
+  3. 清单统计汇总中，增加一个绝对值汇总信息。
+*/
+
+//账目清单列表Hack回调
 function tallyListMutationCallback(mutations, observer) {
-  console.log("计算")
+  //给转账条目增加“转”的文本标志
+  $("span.typename2").html('(转)');
+
+  //在每日支出、收入前，增加一个绝对值汇总的信息
   $("div.list-date ul.ul2").each(function(){
     var absTotal = 0.0;
 
@@ -54,7 +63,7 @@ if (window.location.pathname.match(/\/tally\/new.do$/)) {
       new MutationObserver(tallyListMutationCallback).observe(target, {childList: true});
     }
   }catch(e){
-    console.log(e);
+    console.log("注入记账页账目清单列表观察器失败", e);
   }
 
   //添加“记账”页账目清单汇总观察器
@@ -62,10 +71,8 @@ if (window.location.pathname.match(/\/tally\/new.do$/)) {
     target = document.querySelector('ul.ft-total');
     if (target!=null) {
       new MutationObserver(tallyTotalMutationCallback).observe(target, {subtree:true, childList: true});
-    } else {
-      console.log("Not found tf-toal")
     }
   }catch(e){
-    console.log(e);
+    console.log("注入记账页账目清单汇总观察器失败", e);
   }
 }

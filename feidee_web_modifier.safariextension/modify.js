@@ -116,16 +116,3 @@ try{
 }catch(e){
   console.log(e);
 }
-
-//给“记账”页面条目清单中的转账条目增加“转”的文本标志
-try{
-  target = document.querySelector('div#list');
-  if (target!=null) {
-    callback = function(){
-      $("span.typename2").html('(转)');
-    };
-    new MutationObserver(callback).observe(target, {childList: true});
-  }
-}catch(e){
-  console.log(e);
-}
