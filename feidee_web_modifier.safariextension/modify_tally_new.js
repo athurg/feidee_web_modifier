@@ -1,10 +1,10 @@
 /*
-“记账”页（/tally/new.do）修改的内容：
+  “记账”页（/tally/new.do）修改的内容：
 
   1. 所有的转账条目，和收支类似条目类似，增加一个“转”文本标志。
   2. 条目每日汇总中，增加一个绝对值汇总信息。
   3. 清单统计汇总中，增加一个绝对值汇总信息。
-*/
+ */
 
 //账目清单列表Hack回调
 function tallyListMutationCallback(mutations, observer) {
